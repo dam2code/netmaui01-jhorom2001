@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Maui_app
 {
-    public static class PhonewordTranslator
+    internal class PhonewordTranslator
     {
         public static string ToNumber(string raw)
         {
@@ -19,24 +23,16 @@ namespace Maui_app
                 else
                 {
                     var result = TranslateToNumber(c);
-                    if (result != null)
-                        newNumber.Append(result);
-                    // Bad character?
+                    if (result.HasValue)
+                        newNumber.Append(result.Value);
                     else
-                        return null;
+                        return null; // Caracter no válido
                 }
             }
             return newNumber.ToString();
         }
 
-        static bool Contains(this string keyString, char c)
-        {
-            return keyString.IndexOf(c) >= 0;
-        }
-
-        static readonly string[] digits = {
-        "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ"
-    };
+        static readonly string[] digits = { "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ" };
 
         static int? TranslateToNumber(char c)
         {
@@ -49,3 +45,5 @@ namespace Maui_app
         }
     }
 }
+
+

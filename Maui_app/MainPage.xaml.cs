@@ -11,7 +11,7 @@
         private void traducir(Object sender, EventArgs e)
         {
             string numeroIntroducido = NumTelefonoTexto.Text; //OBTENEMOS EL NUMERO RECOGIDO EN EL ENTRY
-            numeroTraducido = ProyectoEjercicio1.PhonewordTranslator.ToNumber(numeroIntroducido); //UTILIZAMOS EL METODO DE LA CLASE
+            numeroTraducido = Maui_app.PhonewordTranslator.ToNumber(numeroIntroducido); //UTILIZAMOS EL METODO DE LA CLASE
                                                                                                   //PHONEWORDTRANSLATOR PASANDOLE EL NUMERO INTRODUCIDO
                                                                                                   //COMPROBAMOS SI EL NUMERO INTRODUCIDO Y TRADUCIDO ESTA VACIO O NO
             if (!string.IsNullOrEmpty(numeroTraducido))
