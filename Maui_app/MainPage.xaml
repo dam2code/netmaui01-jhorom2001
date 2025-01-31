@@ -1,11 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:notes="clr-namespace:Maui_app"
              x:Class="Maui_app.MainPage">
-	<VerticalStackLayout Spacing="15" Padding="20">
-		<Label Text="Introduce un numero" FontSize="20"/>
-		<Entry x:Name="NumTelefonoTexto" Text="6-NETMAUI"/>
-		<Button x:Name="BotonTraducir" Text="Traducir" Clicked="traducir"/>
-		<Button x:Name="BotonLlamar" Text="Llamar" IsEnabled="False" Clicked="llamada"/>
-	</VerticalStackLayout>
+             
+    <VerticalStackLayout Margin="30,60,30,30">
+        <Label Text="Notas" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{x:Static Member=notes:RecursosCompartidos.FontColor}"/>
+        <Editor x:Name="editor" Placeholder="Introduce tu nota" HeightRequest="{OnPlatform 100, Android=500, iOS=500}" 
+                TextColor="{x:Static Member=notes:RecursosCompartidos.FontColor}"/>
+        <Grid ColumnDefinitions="Auto,30,Auto">
+            <Button Grid.Column="0" Text="Guardar" WidthRequest="100" TextColor="{x:Static Member=notes:RecursosCompartidos.FontColor}" 
+                    BackgroundColor="{x:Static Member=notes:RecursosCompartidos.BackgroundColor}" Clicked="guardar"/>
+            <Button Grid.Column="2" Text="Borrar" WidthRequest="100" TextColor="{x:Static Member=notes:RecursosCompartidos.FontColor}" 
+                    BackgroundColor="{x:Static Member=notes:RecursosCompartidos.BackgroundColor}" Clicked="borrar"/>
+        </Grid>
+    </VerticalStackLayout>
 </ContentPage>
