@@ -4,38 +4,28 @@
              xmlns:notes="clr-namespace:Maui_app"
              x:Class="Maui_app.MainPage">
 
-    <VerticalStackLayout Padding="40" Spacing="10">
-        <HorizontalStackLayout Spacing="10">
-            <Label Text="Factura" WidthRequest="100" VerticalOptions="Center" />
-            <Entry x:Name="facturaEntrada" Placeholder="Introduce cantidad" Keyboard="Numeric" />
-        </HorizontalStackLayout>
+    <Grid RowDefinitions="Auto, Auto, Auto, *, Auto, Auto, Auto"
+          ColumnDefinitions="*, *"
+          Padding="40">
 
-        <HorizontalStackLayout Margin="0,20,0,0" Spacing="10">
-            <Label Text="Propina"   />
-            <Label x:Name="propinaOutput" Text="0.00" />
-        </HorizontalStackLayout>
+        <Label Text="Factura" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+        <Entry x:Name="facturaEntrada" Placeholder="Introduce una cantidad" Keyboard="Numeric" Grid.Row="0" Grid.Column="1"/>
 
-        <HorizontalStackLayout Spacing="10">
-            <Label Text="Total" />
-            <Label x:Name="totalOutput" Text="0.00" />
-        </HorizontalStackLayout>
+        <Label Text="Propina" Grid.Row="1" Grid.Column="0"/>
+        <Label x:Name="propinaOutput" Text="0.00" Grid.Row="1" Grid.Column="1"/>
 
-        <HorizontalStackLayout VerticalOptions="End" Spacing="10">
-            <Label Text="Propina porcentaje" WidthRequest="100"/>
-            <Label x:Name="propinaPorcentaje" Text="15%" />
-        </HorizontalStackLayout>
+        <Label Text="Total" Grid.Row="2" Grid.Column="0"/>
+        <Label x:Name="totalOutput" Text="0.00" Grid.Row="2" Grid.Column="1"/>
 
-        <Slider x:Name="sliderPorcentaje" Minimum="0" Maximum="100" Value="15" />
+        <Label Text="Propina Porcentaje" VerticalOptions="End" HorizontalOptions="Start" Grid.Row="3" Grid.Column="0"/>
+        <Label x:Name="propinaPorcentaje" Text="15%" VerticalOptions="End" HorizontalOptions="End" Grid.Row="3" Grid.Column="1"/>
+        <Slider x:Name="sliderPorcentaje" Minimum="0" Maximum="100" Value="15" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
 
-        <HorizontalStackLayout Margin="0,20,0,0" Spacing="10">
-            <Button Text="15%" Clicked="propinaNormal" WidthRequest="150" HorizontalOptions="Center"/>
-            <Button Text="20%" Clicked="propinaGenerosa"  WidthRequest="150" HorizontalOptions="Center"/>
-        </HorizontalStackLayout>
+        <Button Text="15%" Clicked="propinaNormal" Margin="5" Grid.Row="5" Grid.Column="0"/>
+        <Button Text="20%" Clicked="propinaGenerosa" Margin="5" Grid.Row="5" Grid.Column="1"/>
 
-        <HorizontalStackLayout Margin="0,20,0,0" Spacing="10">
-            <Button x:Name="abajo" Text="Redondeo abajo" WidthRequest="150" HorizontalOptions="Center"/>
-            <Button x:Name="arriba"   Text="Redondeo arriba" WidthRequest="150" HorizontalOptions="Center"/>
-        </HorizontalStackLayout>
+        <Button x:Name="abajo" Margin="5" Text="Redondeo abajo" Grid.Row="6" Grid.Column="0"/>
+        <Button x:Name="arriba"   Margin="5" Text="Redondeo arriba" Grid.Row="6" Grid.Column="1"/>
 
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
