@@ -3,16 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:notes="clr-namespace:Maui_app"
              x:Class="Maui_app.MainPage">
-             
-    <VerticalStackLayout Margin="30,60,30,30">
-        <Label Text="Notas" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{x:Static Member=notes:RecursosCompartidos.FontColor}"/>
-        <Editor x:Name="editor" Placeholder="Introduce tu nota" HeightRequest="{OnPlatform 100, Android=500, iOS=500}" 
-                TextColor="{x:Static Member=notes:RecursosCompartidos.FontColor}"/>
-        <Grid ColumnDefinitions="Auto,30,Auto">
-            <Button Grid.Column="0" Text="Guardar" WidthRequest="100" TextColor="{x:Static Member=notes:RecursosCompartidos.FontColor}" 
-                    BackgroundColor="{x:Static Member=notes:RecursosCompartidos.BackgroundColor}" Clicked="guardar"/>
-            <Button Grid.Column="2" Text="Borrar" WidthRequest="100" TextColor="{x:Static Member=notes:RecursosCompartidos.FontColor}" 
-                    BackgroundColor="{x:Static Member=notes:RecursosCompartidos.BackgroundColor}" Clicked="borrar"/>
-        </Grid>
+
+    <VerticalStackLayout Padding="40" Spacing="10">
+        <HorizontalStackLayout Spacing="10">
+            <Label Text="Factura" WidthRequest="100" VerticalOptions="Center" />
+            <Entry x:Name="facturaEntrada" Placeholder="Introduce cantidad" Keyboard="Numeric" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Margin="0,20,0,0" Spacing="10">
+            <Label Text="Propina"   />
+            <Label x:Name="propinaOutput" Text="0.00" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10">
+            <Label Text="Total" />
+            <Label x:Name="totalOutput" Text="0.00" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout VerticalOptions="End" Spacing="10">
+            <Label Text="Propina porcentaje" WidthRequest="100"/>
+            <Label x:Name="propinaPorcentaje" Text="15%" />
+        </HorizontalStackLayout>
+
+        <Slider x:Name="sliderPorcentaje" Minimum="0" Maximum="100" Value="15" />
+
+        <HorizontalStackLayout Margin="0,20,0,0" Spacing="10">
+            <Button Text="15%" Clicked="propinaNormal" WidthRequest="150" HorizontalOptions="Center"/>
+            <Button Text="20%" Clicked="propinaGenerosa"  WidthRequest="150" HorizontalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Margin="0,20,0,0" Spacing="10">
+            <Button x:Name="abajo" Text="Redondeo abajo" WidthRequest="150" HorizontalOptions="Center"/>
+            <Button x:Name="arriba"   Text="Redondeo arriba" WidthRequest="150" HorizontalOptions="Center"/>
+        </HorizontalStackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

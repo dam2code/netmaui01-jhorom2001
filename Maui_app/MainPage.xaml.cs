@@ -2,36 +2,49 @@
 {
     public partial class MainPage : ContentPage
     {
-        string nombreArchivo = Path.Combine(FileSystem.AppDataDirectory, "notas.txt");
-        String notaIntroducida;
-
         public MainPage()
         {
             InitializeComponent();
-            if (File.Exists(nombreArchivo))
+
+            facturaEntrada.TextChanged += (s, e) => calcularPropina(false, false);
+            abajo.Clicked += (s, e) => calcularPropina(false, true);
+            arriba.Clicked += (s, e) => calcularPropina(true, false);
+
+            sliderPorcentaje.ValueChanged += (s, e) =>
             {
-                editor.Text = File.ReadAllText(nombreArchivo);
-            }
+                double pct = Math.Round(e.NewValue);
+                propinaPorcentaje.Text = pct + "%";
+                calcularPropina(false, false);
+            };
         }
 
-        public void guardar(Object sender, EventArgs e)
+        void calcularPropina(bool arriba, bool abajo)
         {
-            String notaIntroducida = editor.Text;
+            double t;
+            if (Double.TryParse(facturaEntrada.Text, out t) && t > 0)
+            {
+                double pct = Math.Round(sliderPorcentaje.Value);
+                double tip = Math.Round(t * (pct / 100.0), 2);
 
-            if (!string.IsNullOrEmpty(notaIntroducida))
-            {
-                this.DisplayAlert("Quieres guardar la nota ?", "", "Si");
-            }
-            else
-            {
-                this.DisplayAlert("No has introducido nada", "", "Continuar");
+                double final = t + tip;
+
+                if (arriba)
+                {
+                    final = Math.Ceiling(final);
+                    tip = final - t;
+                }
+                else if (abajo)
+                {
+                    final = Math.Floor(final);
+                    tip = final - t;
+                }
+
+                propinaOutput.Text = tip.ToString("C");
+                totalOutput.Text = final.ToString("C");
             }
         }
-
-        public void borrar(object sender, EventArgs e)
-        {
-            editor.Text = "";
-        }
+        void propinaNormal(object sender, EventArgs e) { sliderPorcentaje.Value = 15; }
+        void propinaGenerosa(object sender, EventArgs e) { sliderPorcentaje.Value = 20; }
     }
 
 }
