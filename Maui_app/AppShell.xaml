@@ -7,9 +7,10 @@
     Shell.FlyoutBehavior="Disabled"
     Title="Maui_app">
 
+    <!--COLOCAMOS NUESTRA PAGINA DE OSCURO POR DEFECTO PARA QUE SALGA CUANDO INICIEMOS LA APLICACION-->
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate local:PaginaOscuro}"
         Route="MainPage" />
 
 </Shell>
