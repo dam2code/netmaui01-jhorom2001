@@ -9,14 +9,15 @@ public class PersonRepository
 
     public string StatusMessage { get; set; }
 
-    private SQLiteConnection conn;
+    private SQLiteAsyncConnection conn;
 
-    private void Init()
+    private async Task Init()
     {
         if (conn != null) return;
 
-        conn = new SQLiteConnection(_dbPath);
-        conn.CreateTable<Person>();
+        conn = new SQLiteAsyncConnection(_dbPath);
+
+        await conn.CreateTableAsync<Person>();
     }
 
     public PersonRepository(string dbPath)
@@ -25,7 +26,7 @@ public class PersonRepository
     }
 
     //METODO PARA ANNADIR UN NUEVO DATO EN LA TABLA PERSON
-    public void AddNewPerson(string name)
+    public async Task AddNewPerson(string name)
     {            
         int result = 0;
         try
@@ -35,7 +36,7 @@ public class PersonRepository
             if (string.IsNullOrEmpty(name))
                 throw new Exception("Valida el nombre");
 
-            result = conn.Insert(new Person { nombre = name });
+            result = await conn.InsertAsync(new Person { nombre = name });
             
             StatusMessage = string.Format("{0} dato(s) annadidos (Name: {1})", result, name);
         }
@@ -47,13 +48,13 @@ public class PersonRepository
     }
 
     //OBTENER DATOS DE LA BBDD
-    public List<Person> GetAllPeople()
+    public async Task<List<Person>> GetAllPeople()
     {
-        Init();
-
         try
         {
-            return conn.Table<Person>().ToList();
+            await Init();
+
+            return await conn.Table<Person>().ToListAsync();
         }
         catch (Exception ex)
         {
