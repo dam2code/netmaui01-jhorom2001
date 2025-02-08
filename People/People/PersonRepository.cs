@@ -1,4 +1,5 @@
 ﻿using People.Models;
+using SQLite;
 
 namespace People;
 
@@ -8,11 +9,14 @@ public class PersonRepository
 
     public string StatusMessage { get; set; }
 
-    // TODO: Add variable for the SQLite connection
+    private SQLiteConnection conn;
 
     private void Init()
     {
-        // TODO: Add code to initialize the repository         
+        if (conn != null) return;
+
+        conn = new SQLiteConnection(_dbPath);
+        conn.CreateTable<Person>();
     }
 
     public PersonRepository(string dbPath)
@@ -20,39 +24,40 @@ public class PersonRepository
         _dbPath = dbPath;                        
     }
 
+    //METODO PARA ANNADIR UN NUEVO DATO EN LA TABLA PERSON
     public void AddNewPerson(string name)
     {            
         int result = 0;
         try
         {
-            // TODO: Call Init()
-
-            // basic validation to ensure a name was entered
+            Init();
+            
             if (string.IsNullOrEmpty(name))
-                throw new Exception("Valid name required");
+                throw new Exception("Valida el nombre");
 
-            // TODO: Insert the new person into the database
-            result = 0;
-
-            StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
+            result = conn.Insert(new Person { nombre = name });
+            
+            StatusMessage = string.Format("{0} dato(s) annadidos (Name: {1})", result, name);
         }
         catch (Exception ex)
         {
-            StatusMessage = string.Format("Failed to add {0}. Error: {1}", name, ex.Message);
+            StatusMessage = string.Format("Fallo al annadir {0}. Error: {1}", name, ex.Message);
         }
 
     }
 
+    //OBTENER DATOS DE LA BBDD
     public List<Person> GetAllPeople()
     {
-        // TODO: Init then retrieve a list of Person objects from the database into a list
+        Init();
+
         try
         {
-            
+            return conn.Table<Person>().ToList();
         }
         catch (Exception ex)
         {
-            StatusMessage = string.Format("Failed to retrieve data. {0}", ex.Message);
+            StatusMessage = string.Format("Fallo al recibir data. {0}", ex.Message);
         }
 
         return new List<Person>();

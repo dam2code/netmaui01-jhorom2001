@@ -19,8 +19,10 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		// TODO: Add statements for adding PersonRepository as a singleton
+        //ARCHIVO DONDE SE GUARDARÁN LOS DATOS DE SQLITE
+        string dbPath = FileAccessHelper.GetLocalFilePath("people.db3");
+        builder.Services.AddSingleton<PersonRepository>(s => ActivatorUtilities.CreateInstance<PersonRepository>(s, dbPath));
 
-		return builder.Build();
+        return builder.Build();
 	}
 }
