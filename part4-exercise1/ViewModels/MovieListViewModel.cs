@@ -5,6 +5,13 @@ namespace MovieCatalog.ViewModels;
 
 public class MovieListViewModel: ObservableObject
 {
+    private MovieViewModel _selectedMovie;
+    public MovieViewModel SelectedMovie
+    {
+        get => _selectedMovie;
+        set => SetProperty(ref _selectedMovie, value);
+    }
+
     public ObservableCollection<MovieViewModel> Movies { get; set; }
 
     public MovieListViewModel() =>
